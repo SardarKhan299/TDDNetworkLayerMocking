@@ -9,8 +9,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.test.assertEquals
 
-private const val id = "6"
-private const val joke =
+ const val id = "6"
+ const val joke =
     "How does a train eat? It goes chew, chew"
 
 class JokeServiceTestUsingMockWebServer {
