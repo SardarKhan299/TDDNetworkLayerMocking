@@ -1,6 +1,7 @@
 package com.raywenderlich.android.punchline
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Rule
 import org.junit.Test
@@ -23,12 +24,31 @@ class JokeServiceTestUsingMockWebServer {
             .build()
     }
 
+//    Notice the use of triple quotes to create raw strings. By using raw strings for your
+//    JSON Strings, you don’t need to worry about escaping characters such as the quotes
+//    around the JSON properties.
+
+    private val testJson = """{ "id": 1, "joke": "joke" }"""
+
+
     private val jokeService by lazy {
         retrofit.create(JokeService::class.java)
     }
 
     @Test
     fun getRandomJokeEmitJoke(){
+        // 1
+        mockWebServer.enqueue(
+            // 2
+            MockResponse()
+                // 3
+                .setBody(testJson)
+                // 4
+                .setResponseCode(200))
+        // 1
+        val testObserver = jokeService.getRandomJoke().test()
+// 2
+        testObserver.assertValue(Joke("1", "joke"))
 
     }
 }

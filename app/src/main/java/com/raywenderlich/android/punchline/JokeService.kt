@@ -30,6 +30,8 @@
 
 package com.raywenderlich.android.punchline
 
-interface JokeService {
+import io.reactivex.Single
 
+interface JokeService {
+    fun getRandomJoke(): Single<Joke>
 }
