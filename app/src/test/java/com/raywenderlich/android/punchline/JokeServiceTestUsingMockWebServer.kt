@@ -8,6 +8,10 @@ import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+private const val id = "6"
+private const val joke =
+    "How does a train eat? It goes chew, chew"
+
 class JokeServiceTestUsingMockWebServer {
     @get:Rule
     val mockWebServer = MockWebServer()
@@ -24,11 +28,13 @@ class JokeServiceTestUsingMockWebServer {
             .build()
     }
 
+
+
 //    Notice the use of triple quotes to create raw strings. By using raw strings for your
 //    JSON Strings, you don’t need to worry about escaping characters such as the quotes
 //    around the JSON properties.
 
-    private val testJson = """{ "id": 1, "joke": "joke" }"""
+    private val testJson = """{ "id": $id, "joke": "$joke" }"""
 
 
     private val jokeService by lazy {
@@ -48,7 +54,7 @@ class JokeServiceTestUsingMockWebServer {
         // 1
         val testObserver = jokeService.getRandomJoke().test()
 // 2
-        testObserver.assertValue(Joke("1", "joke"))
+        testObserver.assertValue(Joke(id, joke))
 
     }
 }
