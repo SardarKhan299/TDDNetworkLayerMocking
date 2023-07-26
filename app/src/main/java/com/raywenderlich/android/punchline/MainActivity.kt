@@ -46,9 +46,9 @@ class MainActivity : AppCompatActivity() {
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
-    viewModel.state.observe(this, { uiModel ->
+    viewModel.state.observe(this) { uiModel ->
       render(uiModel)
-    })
+    }
     viewModel.getJoke()
   }
 
